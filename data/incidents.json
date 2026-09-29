@@ -1,0 +1,418 @@
+[
+  {
+    "id": "SOS-2026-7969",
+    "createdAt": "2026-09-29T16:29:23.392Z",
+    "emergencyType": "Medical",
+    "severity": "Critical",
+    "location": "Oakridge Community Center, Main Gym",
+    "peopleAffected": 3,
+    "description": "Sudden collapse during basketball game, 45yo adult male in full cardiac arrest, no pulse detected, bystander initiating chest compressions while gym staff retrieves AED. Two other spectators in severe panic.",
+    "contactName": "Coach Thomas Riley",
+    "contactNumber": "+1 (555) 723-9011",
+    "aiCategory": "Acute Life-Threat / Critical Resuscitation",
+    "priority": "P1 - Critical",
+    "priorityReason": "Large number of people affected (3) + reported life-threatening symptoms. Immediate tactical intervention required.",
+    "keyRiskFactors": [
+      "Potential life-threatening condition",
+      "Impaired airway or cardiac compromise",
+      "Rapid patient deterioration risk"
+    ],
+    "recommendedResponse": {
+      "immediateAction": "Dispatch Advanced Life Support (ALS) unit immediately; prioritize rapid airway and cardiac resuscitation.",
+      "suggestedTeam": "Medical Response",
+      "riskConsideration": "Immediate life-threatening hypoxia, cardiac arrest, or neurological deterioration."
+    },
+    "suggestedResponseTeam": "Medical Response",
+    "status": "Resolved",
+    "assignedResponder": "Capt. Elena Vance",
+    "assignedResponderRole": "Lead Paramedic & Trauma Specialist",
+    "assignedResponderSpecialization": "Medical Response",
+    "assignedAt": "2026-09-29T16:29:44.691Z",
+    "resolvedAt": "2026-09-29T16:29:53.075Z",
+    "resolutionNotes": "Patient experienced ventricular fibrillation, successfully converted to sinus rhythm after single 200J biphasic shock. Spontaneous breathing restored. Patient transported to Metropolitan Cardiac Center with ROSC verified. Scene secured.",
+    "isSample": false,
+    "aiSource": "rule-engine",
+    "aiSourceNote": "AI triage unavailable — deterministic emergency rules applied.",
+    "timeline": [
+      {
+        "id": "tl-1790699364937-1",
+        "timestamp": "2026-09-29T16:29:23.392Z",
+        "action": "Incident Reported",
+        "actor": "Coach Thomas Riley (Citizen)",
+        "details": "Emergency report submitted for Medical at Oakridge Community Center, Main Gym. People affected: 3."
+      },
+      {
+        "id": "tl-1790699364937-2",
+        "timestamp": "2026-09-29T16:29:24.937Z",
+        "action": "AI Triage Completed",
+        "actor": "CivicSOS Neural Triage System",
+        "details": "Assigned P1 - Critical. Category: Acute Life-Threat / Critical Resuscitation. Recommended Team: Medical Response."
+      },
+      {
+        "id": "tl-1790699373777-assign",
+        "timestamp": "2026-09-29T16:29:33.777Z",
+        "action": "Responder Assigned",
+        "actor": "Dispatch Officer",
+        "details": "Incident assigned to Capt. Elena Vance (Lead Paramedic & Trauma Specialist)."
+      },
+      {
+        "id": "tl-1790699373777-status",
+        "timestamp": "2026-09-29T16:29:33.777Z",
+        "action": "Status Changed to Assigned",
+        "actor": "Dispatch Officer",
+        "details": "Incident progressed to Assigned."
+      },
+      {
+        "id": "tl-1790699384691-status",
+        "timestamp": "2026-09-29T16:29:44.691Z",
+        "action": "Response Started",
+        "actor": "Dispatch Officer",
+        "details": "Paramedic unit arrived on scene; ALS resuscitation and Lucas CPR in progress."
+      },
+      {
+        "id": "tl-1790699393075-status",
+        "timestamp": "2026-09-29T16:29:53.075Z",
+        "action": "Incident Resolved",
+        "actor": "Dispatch Officer",
+        "details": "Resolution recorded: \"Patient experienced ventricular fibrillation, successfully converted to sinus rhythm after single 200J biphasic shock. Spontaneous breathing restored. Patient transported to Metropolitan Cardiac Center with ROSC verified. Scene secured.\""
+      }
+    ],
+    "note": "Paramedic unit arrived on scene; ALS resuscitation and Lucas CPR in progress."
+  },
+  {
+    "id": "SOS-2026-9041",
+    "createdAt": "2026-09-29T16:11:09.866Z",
+    "emergencyType": "Medical",
+    "severity": "Critical",
+    "location": "Central Metro Station, Platform 3, Downtown",
+    "peopleAffected": 2,
+    "description": "Elderly commuter collapsed with severe chest pains, unresponsive; another bystander injured trying to catch them on the stairs.",
+    "contactName": "James Rodriguez (Station Officer)",
+    "contactNumber": "+1 (555) 019-2831",
+    "aiCategory": "Acute Life-Threat / Critical Resuscitation",
+    "priority": "P1 - Critical",
+    "priorityReason": "Reported life-threatening cardiac arrest symptoms with unresponsive victim in dense subterranean transit hub.",
+    "keyRiskFactors": [
+      "Potential life-threatening condition (cardiac arrest)",
+      "Subterranean platform access constraints",
+      "High-density transit passenger flow"
+    ],
+    "recommendedResponse": {
+      "immediateAction": "Dispatch Advanced Life Support (ALS) paramedic team immediately and coordinate automated external defibrillator (AED) access on Platform 3.",
+      "suggestedTeam": "Medical Response",
+      "riskConsideration": "Irreversible cerebral hypoxia within 4-6 minutes without continuous CPR and immediate defibrillation."
+    },
+    "suggestedResponseTeam": "Medical Response",
+    "status": "In Progress",
+    "assignedResponder": "Capt. Elena Vance",
+    "assignedResponderRole": "Lead Paramedic & Trauma Specialist",
+    "assignedResponderSpecialization": "Medical Response",
+    "assignedAt": "2026-09-29T16:15:09.867Z",
+    "resolvedAt": null,
+    "resolutionNotes": null,
+    "isSample": true,
+    "aiSource": "gemini",
+    "timeline": [
+      {
+        "id": "tl-1",
+        "timestamp": "2026-09-29T16:11:09.867Z",
+        "action": "Incident Reported",
+        "actor": "Citizen via CivicSOS Web Portal",
+        "details": "Initial report submitted for Critical Medical emergency at Central Metro Station."
+      },
+      {
+        "id": "tl-2",
+        "timestamp": "2026-09-29T16:12:09.867Z",
+        "action": "AI Triage Completed",
+        "actor": "CivicSOS Neural Triage Engine",
+        "details": "Triaged as P1 - Critical. Recommended immediate ALS resuscitation dispatch."
+      },
+      {
+        "id": "tl-3",
+        "timestamp": "2026-09-29T16:15:09.867Z",
+        "action": "Responder Assigned",
+        "actor": "Dispatch Center",
+        "details": "Assigned to Capt. Elena Vance (Lead Paramedic). Mobile resuscitation crew en route."
+      },
+      {
+        "id": "tl-4",
+        "timestamp": "2026-09-29T16:19:09.867Z",
+        "action": "Response Started",
+        "actor": "Capt. Elena Vance",
+        "details": "Unit arrived on scene. CPR and Lucas chest compression device deployed."
+      }
+    ]
+  },
+  {
+    "id": "SOS-2026-8812",
+    "createdAt": "2026-09-29T15:47:09.867Z",
+    "emergencyType": "Fire",
+    "severity": "High",
+    "location": "412 Harbor Boulevard, Warehouse District",
+    "peopleAffected": 4,
+    "description": "Black toxic smoke and active flames seen pouring from 2nd floor loading dock. Forklift lithium battery station involved.",
+    "contactName": "Elena Rostova",
+    "contactNumber": "+1 (555) 432-8765",
+    "aiCategory": "Hazmat Chemical Fire / Explosive Threat",
+    "priority": "P2 - High",
+    "priorityReason": "Active industrial structure fire involving lithium battery thermal runaway with toxic fluoride gas emission.",
+    "keyRiskFactors": [
+      "Lithium battery thermal runaway and re-ignition risk",
+      "Toxic dense chemical particulate emission",
+      "Proximity to bulk containerized lubricants"
+    ],
+    "recommendedResponse": {
+      "immediateAction": "Deploy Class D chemical suppression engines and establish a minimum 400-foot exclusion zone.",
+      "suggestedTeam": "Fire & Rescue",
+      "riskConsideration": "Water application may produce explosive hydrogen gas; specialized dry extinguishing agent required."
+    },
+    "suggestedResponseTeam": "Fire & Rescue",
+    "status": "Assigned",
+    "assignedResponder": "Lt. Marcus Chen",
+    "assignedResponderRole": "Fire & Hazmat Suppression Lead",
+    "assignedResponderSpecialization": "Fire & Rescue",
+    "assignedAt": "2026-09-29T15:59:09.867Z",
+    "resolvedAt": null,
+    "resolutionNotes": null,
+    "isSample": true,
+    "aiSource": "gemini",
+    "timeline": [
+      {
+        "id": "tl-5",
+        "timestamp": "2026-09-29T15:47:09.867Z",
+        "action": "Incident Reported",
+        "actor": "Citizen via CivicSOS Web Portal",
+        "details": "Industrial chemical fire reported at 412 Harbor Blvd."
+      },
+      {
+        "id": "tl-6",
+        "timestamp": "2026-09-29T15:48:09.867Z",
+        "action": "AI Triage Completed",
+        "actor": "CivicSOS Neural Triage Engine",
+        "details": "Classified as P2 - High. Recommended Hazmat tender and foam suppression deployment."
+      },
+      {
+        "id": "tl-7",
+        "timestamp": "2026-09-29T15:59:09.867Z",
+        "action": "Responder Assigned",
+        "actor": "Station 14 Fire & Rescue",
+        "details": "Dispatched Ladder Engine 14 and Hazmat Tender under Lt. Marcus Chen."
+      }
+    ]
+  },
+  {
+    "id": "SOS-2026-7450",
+    "createdAt": "2026-09-29T15:24:09.867Z",
+    "emergencyType": "Accident",
+    "severity": "Medium",
+    "location": "Interstate 95 Northbound, Exit 14 Ramp",
+    "peopleAffected": 3,
+    "description": "Two-car sideswipe collision on exit ramp; passenger vehicles blocking right lane. Airbags deployed, drivers conscious with minor abrasions.",
+    "contactName": "Brian Miller",
+    "contactNumber": "+1 (555) 901-2345",
+    "aiCategory": "Roadway Traffic Incident / Safety Hazard",
+    "priority": "P3 - Medium",
+    "priorityReason": "Moderate impact collision with minor injuries; primary hazard is secondary collision in merging high-speed traffic.",
+    "keyRiskFactors": [
+      "High-speed highway blind curve hazard",
+      "Congestion tailback extending onto mainline Interstate"
+    ],
+    "recommendedResponse": {
+      "immediateAction": "Deploy highway safety patrol to deploy warning flares and arrange flatbed tow clearance.",
+      "suggestedTeam": "Police / Public Safety",
+      "riskConsideration": "Secondary rear-end collisions by distracted drivers on approaching blind curve."
+    },
+    "suggestedResponseTeam": "Police / Public Safety",
+    "status": "In Progress",
+    "assignedResponder": "Officer Sarah Jenkins",
+    "assignedResponderRole": "Traffic & Rapid Tactical Responder",
+    "assignedResponderSpecialization": "Police / Public Safety",
+    "assignedAt": "2026-09-29T15:39:09.867Z",
+    "resolvedAt": null,
+    "resolutionNotes": null,
+    "isSample": true,
+    "aiSource": "gemini",
+    "timeline": [
+      {
+        "id": "tl-8",
+        "timestamp": "2026-09-29T15:24:09.867Z",
+        "action": "Incident Reported",
+        "actor": "Motorist via CivicSOS Mobile",
+        "details": "Sideswipe collision reported on Exit 14 ramp."
+      },
+      {
+        "id": "tl-9",
+        "timestamp": "2026-09-29T15:39:09.867Z",
+        "action": "Responder Assigned",
+        "actor": "Highway Patrol Dispatch",
+        "details": "Officer Sarah Jenkins dispatched to establish traffic cone flare pattern."
+      },
+      {
+        "id": "tl-10",
+        "timestamp": "2026-09-29T15:54:09.867Z",
+        "action": "Response Started",
+        "actor": "Officer Sarah Jenkins",
+        "details": "On scene. Warning cones placed, secondary tow truck en route."
+      }
+    ]
+  },
+  {
+    "id": "SOS-2026-5509",
+    "createdAt": "2026-09-29T16:21:09.867Z",
+    "emergencyType": "Flood",
+    "severity": "Critical",
+    "location": "Riverside Drive Lower Underpass",
+    "peopleAffected": 5,
+    "description": "Rapid stormwater runoff has filled underpass over 4 feet deep. Passenger minivan stalled with family including 2 children trapped on roof.",
+    "contactName": "Clara Oswald",
+    "contactNumber": "+1 (555) 654-3210",
+    "aiCategory": "Flash Flood / Rapid Water Rescue",
+    "priority": "P1 - Critical",
+    "priorityReason": "Life-safety emergency: 5 individuals including children stranded on vehicle roof with water level rising at 6 inches/minute.",
+    "keyRiskFactors": [
+      "Potential life-threatening condition (drowning/hypothermia)",
+      "Rapidly rising water depth and debris-laden current",
+      "Pediatric victims stranded without flotation devices"
+    ],
+    "recommendedResponse": {
+      "immediateAction": "Launch motorized swiftwater rescue zodiac and deploy shore-based throw bags and rescue harnesses immediately.",
+      "suggestedTeam": "Disaster Response",
+      "riskConsideration": "Water entering vehicle cabin or vehicle shifting into deep culvert drainage pit."
+    },
+    "suggestedResponseTeam": "Disaster Response",
+    "status": "New",
+    "assignedResponder": null,
+    "assignedAt": null,
+    "resolvedAt": null,
+    "resolutionNotes": null,
+    "isSample": true,
+    "aiSource": "gemini",
+    "timeline": [
+      {
+        "id": "tl-15",
+        "timestamp": "2026-09-29T16:21:09.867Z",
+        "action": "Incident Reported",
+        "actor": "Citizen via CivicSOS Web Portal",
+        "details": "Emergency flash flood report submitted. Vehicle occupants stranded on roof."
+      },
+      {
+        "id": "tl-16",
+        "timestamp": "2026-09-29T16:22:09.867Z",
+        "action": "AI Triage Completed",
+        "actor": "CivicSOS Neural Triage Engine",
+        "details": "Escalated to P1 - Critical. Swiftwater rescue response recommended."
+      }
+    ]
+  },
+  {
+    "id": "SOS-2026-6211",
+    "createdAt": "2026-09-29T14:29:09.867Z",
+    "emergencyType": "Infrastructure",
+    "severity": "Critical",
+    "location": "Oakridge Avenue & 7th Street Intersection",
+    "peopleAffected": 12,
+    "description": "High pressure gas distribution main ruptured by third-party backhoe excavator; strong mercaptan odor detected across 3 blocks.",
+    "contactName": "City Water Inspector Ortiz",
+    "contactNumber": "+1 (555) 778-9900",
+    "aiCategory": "Hazardous Gas Pipeline Rupture",
+    "priority": "P1 - Critical",
+    "priorityReason": "Catastrophic combustible vapor cloud risk in densely populated municipal residential corridor.",
+    "keyRiskFactors": [
+      "Potential life-threatening condition (vapor explosion)",
+      "Multiple people affected (12+ residents in immediate blast zone)",
+      "Subterranean migration into sewer conduits"
+    ],
+    "recommendedResponse": {
+      "immediateAction": "Order immediate reverse-911 evacuation of 3-block perimeter; dispatch utility shutoff crews and eliminate all ignition sources.",
+      "suggestedTeam": "Infrastructure Response",
+      "riskConsideration": "Combustible atmosphere reached lower explosive limit (LEL); static discharge could trigger explosion."
+    },
+    "suggestedResponseTeam": "Infrastructure Response",
+    "status": "Resolved",
+    "assignedResponder": "Eng. David Morales",
+    "assignedResponderRole": "Infrastructure & Electrical Safety Officer",
+    "assignedResponderSpecialization": "Infrastructure Response",
+    "assignedAt": "2026-09-29T14:39:09.867Z",
+    "resolvedAt": "2026-09-29T16:04:09.867Z",
+    "resolutionNotes": "Gas pipeline branch 14 isolated via emergency curb valve. Atmospheric gas monitors verified 0.0% LEL in adjacent buildings. Trench secured.",
+    "isSample": true,
+    "aiSource": "gemini",
+    "timeline": [
+      {
+        "id": "tl-11",
+        "timestamp": "2026-09-29T14:29:09.867Z",
+        "action": "Incident Reported",
+        "actor": "Municipal Inspector Ortiz",
+        "details": "High pressure natural gas line strike reported."
+      },
+      {
+        "id": "tl-12",
+        "timestamp": "2026-09-29T14:39:09.867Z",
+        "action": "Responder Assigned",
+        "actor": "Civil Utility Dispatch",
+        "details": "Assigned to Eng. David Morales (Utility Emergency Lead)."
+      },
+      {
+        "id": "tl-13",
+        "timestamp": "2026-09-29T15:14:09.867Z",
+        "action": "Response Started",
+        "actor": "Eng. David Morales",
+        "details": "Hazard boundary taped off; valve isolation procedure begun."
+      },
+      {
+        "id": "tl-14",
+        "timestamp": "2026-09-29T16:04:09.867Z",
+        "action": "Incident Resolved",
+        "actor": "Eng. David Morales",
+        "details": "Valve shutoff verified. Air samples clear. Gas line repaired."
+      }
+    ]
+  },
+  {
+    "id": "SOS-2026-4102",
+    "createdAt": "2026-09-29T14:54:09.867Z",
+    "emergencyType": "Infrastructure",
+    "severity": "Low",
+    "location": "Pinehurst Park Pathway & Elm Gate",
+    "peopleAffected": 1,
+    "description": "Broken irrigation pipe spraying water onto public pedestrian pathway, creating large puddle across walking path.",
+    "contactName": "Karen Peterson",
+    "contactNumber": "+1 (555) 321-9988",
+    "aiCategory": "Municipal Infrastructure System Malfunction",
+    "priority": "P4 - Low",
+    "priorityReason": "Low-risk localized irrigation leak with no structural threat, electrical hazard, or injury exposure.",
+    "keyRiskFactors": [
+      "Minor localized slip and fall surface hazard",
+      "Municipal water loss if unaddressed"
+    ],
+    "recommendedResponse": {
+      "immediateAction": "Schedule parks department maintenance crew to shut off localized irrigation valve during routine shift.",
+      "suggestedTeam": "Infrastructure Response",
+      "riskConsideration": "Negligible safety risk; manage through standard municipal ticket queue."
+    },
+    "suggestedResponseTeam": "Infrastructure Response",
+    "status": "New",
+    "assignedResponder": null,
+    "assignedAt": null,
+    "resolvedAt": null,
+    "resolutionNotes": null,
+    "isSample": true,
+    "aiSource": "gemini",
+    "timeline": [
+      {
+        "id": "tl-17",
+        "timestamp": "2026-09-29T14:54:09.867Z",
+        "action": "Incident Reported",
+        "actor": "Citizen via CivicSOS Web Portal",
+        "details": "Irrigation pipe leak reported in Pinehurst Park."
+      },
+      {
+        "id": "tl-18",
+        "timestamp": "2026-09-29T14:55:09.867Z",
+        "action": "AI Triage Completed",
+        "actor": "CivicSOS Neural Triage Engine",
+        "details": "Classified as P4 - Low. Assigned to standard municipal maintenance queue."
+      }
+    ]
+  }
+]

@@ -1,8 +1,8 @@
-import { Incident, IncidentStatus } from '../types/incident.ts';
+import { Incident, IncidentStatus, TimelineEntry, IncidentSubmissionData } from '../types/incident.ts';
 import { INITIAL_SAMPLE_INCIDENTS } from '../data/sampleIncidents.ts';
 import { runDeterministicClassification } from './aiClassifier.ts';
 
-const STORAGE_KEY = 'civicsos_incidents_v1';
+const STORAGE_KEY = 'civicsos_incidents_v2';
 const INCIDENT_EVENT = 'civicsos_incidents_updated';
 
 function getLocalIncidents(): Incident[] {
@@ -51,40 +51,35 @@ export const incidentStorage = {
         }
       }
     } catch {
-      // Offline or network error - use localStorage
+      // Server not reached, fallback to localStorage
     }
     return getLocalIncidents();
   },
 
   async getIncidentById(id: string): Promise<Incident | null> {
-    const all = await this.getAllIncidents();
+    try {
+      const res = await fetch(`/api/incidents/${id}`, {
+        headers: { Accept: 'application/json' },
+      });
+      if (res.ok) {
+        const incident = await res.json();
+        return incident;
+      }
+    } catch {
+      // Fallback to local
+    }
+    const all = getLocalIncidents();
     return all.find((inc) => inc.id === id) || null;
   },
 
   async createIncident(
-    payload: Omit<
-      Incident,
-      | 'id'
-      | 'createdAt'
-      | 'status'
-      | 'assignedResponder'
-      | 'assignedResponderRole'
-      | 'assignedAt'
-      | 'resolvedAt'
-      | 'resolutionNotes'
-      | 'timeline'
-      | 'aiCategory'
-      | 'priority'
-      | 'priorityReason'
-      | 'aiSource'
-    >
+    payload: IncidentSubmissionData
   ): Promise<Incident> {
-    // Generate unique incident ID
     const randomSuffix = Math.floor(1000 + Math.random() * 9000);
     const incidentId = `SOS-${new Date().getFullYear()}-${randomSuffix}`;
     const createdAt = new Date().toISOString();
 
-    // 1. Try server-side AI triage via /api/incidents
+    // 1. Try server-side enhanced AI triage
     try {
       const res = await fetch('/api/incidents', {
         method: 'POST',
@@ -97,23 +92,23 @@ export const incidentStorage = {
       });
 
       if (res.ok) {
-        const saved = await res.json();
-        // Update local storage
+        const saved: Incident = await res.json();
         const current = getLocalIncidents();
         const updated = [saved, ...current.filter((i) => i.id !== saved.id)];
         saveLocalIncidents(updated);
         return saved;
       }
-    } catch {
-      // Backend not reached, fall through to client-side fallback
+    } catch (networkErr) {
+      console.warn('Backend unavailable, using client-side deterministic fallback triage:', networkErr);
     }
 
-    // 2. Client-side deterministic classification fallback
+    // 2. Client-side deterministic fallback triage
     const aiResult = runDeterministicClassification(
       payload.emergencyType,
       payload.severity,
       payload.peopleAffected,
-      payload.description
+      payload.description,
+      payload.location
     );
 
     const newIncident: Incident = {
@@ -123,27 +118,33 @@ export const incidentStorage = {
       aiCategory: aiResult.aiCategory,
       priority: aiResult.priority,
       priorityReason: aiResult.priorityReason,
+      keyRiskFactors: aiResult.keyRiskFactors,
+      recommendedResponse: aiResult.recommendedResponse,
+      suggestedResponseTeam: aiResult.suggestedResponseTeam,
       status: 'New',
       assignedResponder: null,
+      assignedResponderRole: undefined,
+      assignedResponderSpecialization: undefined,
       assignedAt: null,
       resolvedAt: null,
       resolutionNotes: null,
       isSample: false,
       aiSource: 'rule-engine',
+      aiSourceNote: 'AI triage unavailable — deterministic emergency rules applied.',
       timeline: [
         {
           id: `tl-${Date.now()}-1`,
           timestamp: createdAt,
-          action: 'Emergency Incident Reported',
+          action: 'Incident Reported',
           actor: payload.contactName ? `${payload.contactName} (Citizen)` : 'Citizen Report',
-          details: `Emergency report submitted for ${payload.emergencyType} at ${payload.location}. Affected individuals: ${payload.peopleAffected}.`,
+          details: `Emergency report submitted for ${payload.emergencyType} at ${payload.location}. People affected: ${payload.peopleAffected}.`,
         },
         {
           id: `tl-${Date.now()}-2`,
           timestamp: new Date().toISOString(),
-          action: 'Automated AI Triage Assessment',
+          action: 'AI Triage Completed',
           actor: 'CivicSOS Neural Triage System',
-          details: `Classified as ${aiResult.priority}. Category: ${aiResult.aiCategory}. Reason: ${aiResult.priorityReason}`,
+          details: `Assigned ${aiResult.priority}. Category: ${aiResult.aiCategory}. Recommended Team: ${aiResult.suggestedResponseTeam}.`,
         },
       ],
     };
@@ -166,8 +167,7 @@ export const incidentStorage = {
     const timestamp = new Date().toISOString();
     const actor = updates.actorName || 'Dispatch Officer';
 
-    // Prepare updated timeline
-    const newTimelineEntries = [...existing.timeline];
+    const newTimelineEntries: TimelineEntry[] = [...existing.timeline];
 
     if (updates.assignedResponder && updates.assignedResponder !== existing.assignedResponder) {
       newTimelineEntries.push({
@@ -175,19 +175,39 @@ export const incidentStorage = {
         timestamp,
         action: 'Responder Assigned',
         actor,
-        details: `Assigned to ${updates.assignedResponder}${updates.assignedResponderRole ? ` (${updates.assignedResponderRole})` : ''}.`,
+        details: `Incident assigned to ${updates.assignedResponder}${updates.assignedResponderRole ? ` (${updates.assignedResponderRole})` : ''}.`,
       });
     }
 
     if (updates.status && updates.status !== existing.status) {
+      let action = `Status Changed to ${updates.status}`;
+      if (updates.status === 'In Progress') {
+        action = 'Response Started';
+      } else if (updates.status === 'Resolved') {
+        action = 'Incident Resolved';
+      }
+
+      let details = updates.note || `Incident progressed to ${updates.status}.`;
+      if (updates.status === 'Resolved' && updates.resolutionNotes) {
+        details = `Resolution recorded: "${updates.resolutionNotes}"`;
+      }
+
       newTimelineEntries.push({
         id: `tl-${Date.now()}-status`,
         timestamp,
-        action: `Status Changed to ${updates.status}`,
+        action,
         actor,
-        details: updates.resolutionNotes
-          ? `Resolution notes added: "${updates.resolutionNotes}"`
-          : updates.note || `Incident progressed to ${updates.status}.`,
+        details,
+      });
+    }
+
+    if (updates.resolutionNotes && updates.resolutionNotes !== existing.resolutionNotes && updates.status !== 'Resolved') {
+      newTimelineEntries.push({
+        id: `tl-${Date.now()}-notes`,
+        timestamp,
+        action: 'Resolution Added',
+        actor,
+        details: `Operational notes: "${updates.resolutionNotes}"`,
       });
     }
 
@@ -197,17 +217,15 @@ export const incidentStorage = {
       timeline: newTimelineEntries,
     };
 
-    // If status changed to In Progress and assignedAt is not set
     if (updates.status === 'In Progress' && !updatedIncident.assignedAt) {
       updatedIncident.assignedAt = timestamp;
     }
 
-    // If status changed to Resolved
     if (updates.status === 'Resolved' && !updatedIncident.resolvedAt) {
       updatedIncident.resolvedAt = timestamp;
     }
 
-    // Try server update
+    // Attempt server update
     try {
       fetch(`/api/incidents/${id}`, {
         method: 'PATCH',

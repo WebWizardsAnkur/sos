@@ -17,29 +17,12 @@ import {
   ArrowLeft,
   Navigation,
 } from 'lucide-react';
-import { EmergencyType, SeverityLevel, Incident } from '../types/incident.ts';
+import { EmergencyType, SeverityLevel, Incident, IncidentSubmissionData } from '../types/incident.ts';
 
 interface CitizenReportFormProps {
   onSubmitSuccess: (incident: Incident) => void;
   onCancel: () => void;
-  submitIncidentHandler: (
-    data: Omit<
-      Incident,
-      | 'id'
-      | 'createdAt'
-      | 'status'
-      | 'assignedResponder'
-      | 'assignedResponderRole'
-      | 'assignedAt'
-      | 'resolvedAt'
-      | 'resolutionNotes'
-      | 'timeline'
-      | 'aiCategory'
-      | 'priority'
-      | 'priorityReason'
-      | 'aiSource'
-    >
-  ) => Promise<Incident>;
+  submitIncidentHandler: (data: IncidentSubmissionData) => Promise<Incident>;
   initialPrefill?: Partial<{
     emergencyType: EmergencyType;
     severity: SeverityLevel;

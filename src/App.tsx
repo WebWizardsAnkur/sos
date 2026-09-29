@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Incident, EmergencyType, SeverityLevel } from './types/incident.ts';
+import { Incident, EmergencyType, SeverityLevel, IncidentSubmissionData } from './types/incident.ts';
 import { incidentStorage } from './services/incidentStorage.ts';
 import { SAMPLE_RESPONDERS } from './data/responders.ts';
 import { Navbar } from './components/Navbar.tsx';
@@ -58,24 +58,7 @@ export default function App() {
   }, [selectedIncident]);
 
   // Handle citizen emergency report submission
-  const handleSubmitIncident = async (
-    data: Omit<
-      Incident,
-      | 'id'
-      | 'createdAt'
-      | 'status'
-      | 'assignedResponder'
-      | 'assignedResponderRole'
-      | 'assignedAt'
-      | 'resolvedAt'
-      | 'resolutionNotes'
-      | 'timeline'
-      | 'aiCategory'
-      | 'priority'
-      | 'priorityReason'
-      | 'aiSource'
-    >
-  ): Promise<Incident> => {
+  const handleSubmitIncident = async (data: IncidentSubmissionData): Promise<Incident> => {
     const saved = await incidentStorage.createIncident(data);
     setIncidents((prev) => [saved, ...prev.filter((i) => i.id !== saved.id)]);
     setSubmittedIncident(saved);
